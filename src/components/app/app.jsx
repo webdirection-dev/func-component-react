@@ -1,43 +1,49 @@
 import React, {useState} from "react";
+import Clicker from "../clicker";
+import Ref from "../ref";
+import Timer from "../timer";
+import './app.css';
+import './content.css';
 
 const App = () => {
-    // useState - из набораа хукков
-    // деструктуризация массива, возвращенного из useState()
-    // по умолчанию const value === 0, т.к useState(0) - т.е 1й аргумент функции useState это значение для value
-    const [value, setValue] = useState(11);
-    const [value2, setValue2] = useState(22);
+    const [isClicker, setClicker] = useState(false);
+    const [isTimer, setTimer] = useState(false);
 
-    // изменим value передав другое значение в аргумет useState(2)
-    // теперб value = 1
-    useState(33)
+    const onToggleClicker = () => {
+        setClicker(!isClicker);
+    }
 
-
-    // Например счетчик
-    const [count, setCount] = useState(0);
-
-    const increment = () => {
-        setCount(count + 1)
-    };
-
-    const decrement = () => {
-        setCount(count - 1)
-    };
+    const onToggleTimer = () => {
+        setTimer(!isTimer);
+    }
 
     return (
-        <>
-            <button onClick={increment}>+</button>
+        <div className='app'>
+            <h2>React App</h2>
+            <div className="content">
+                <div>
+                    <button
+                        onClick={onToggleClicker}
+                    >
+                        Toggle Clicker
+                    </button>
+                    {isClicker && <Clicker />}
+                </div>
 
-            <span
-                style={{
-                    display: 'inline-block',
-                    margin: '10px'
-                }}
-            >
-                {count}
-            </span>
+                <div className="ref">
+                    <Ref />
+                </div>
 
-            <button onClick={decrement}>-</button>
-        </>
+                <div>
+                    <button
+                        onClick={onToggleTimer}
+                    >
+                        Toggle Timer
+                    </button>
+                    {isTimer && <Timer />}
+                </div>
+            </div>
+        </div>
     );
 }
 
